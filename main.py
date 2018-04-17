@@ -29,3 +29,9 @@ def get_split(dataset):
                                           index, row[index], t_gini, groups
                 
     return {'index':c_index, 'value': c_value, 'groups':c_groups}
+
+def terminal_pred(group):
+    preds = [row[-1] for row in group]
+    return max(preds, key=preds.count)
+
+
