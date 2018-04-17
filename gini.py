@@ -14,12 +14,12 @@ def score(group, classes):
         s += prop * prop
     return s
 
-total_gini(groups, classes, total_samples):
+def calc_total_gini(groups, classes, total_samples):
     t_gini = 0.0
 
     for group in groups:
-        score = score(group, classes)
-        t_gini += gini_index(score, len(group), total_samples)
+        scr = score(group, classes)
+        t_gini += gini_index(scr, len(group), total_samples)
 
     return t_gini
 

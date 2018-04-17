@@ -1,7 +1,8 @@
-import recursive_splitting
+import split_data as sd
+import recursive_splitting as rs
 
 def build_tree(train, max_depth, min_size):
-    root = get_split(train)
-    split(root, max_depth, min_size, 1)
+    root = sd.get_split(train)
+    rs.recursive_split(root, 1, max_depth, min_size)
     return root
 

@@ -1,3 +1,5 @@
+import gini
+
 def test_split(index, value, dataset):
     left, right = list(), list()
 
@@ -17,7 +19,7 @@ def get_split(dataset):
     for index in range(len(dataset[0])-1):
         for row in dataset:
             groups = test_split(index, row[index], dataset)
-            t_gini = calc_total_gini(groups, class_val, total_samples)
+            t_gini = gini.calc_total_gini(groups, class_val, total_samples)
 
             print ('Attribute:', 'X'+str(index), ' Value:', row[index], ' Gini:', t_gini)
 
