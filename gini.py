@@ -13,3 +13,13 @@ def score(group, classes):
         prop = [row[-1] for row in group].count(class_val) / len(group)
         s += prop * prop
     return s
+
+total_gini(groups, classes, total_samples):
+    t_gini = 0.0
+
+    for group in groups:
+        score = score(group, classes)
+        t_gini += gini_index(score, len(group), total_samples)
+
+    return t_gini
+
