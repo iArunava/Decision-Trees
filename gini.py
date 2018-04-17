@@ -6,10 +6,10 @@ def gini_index(scr, grp_size, total_samples):
 	return (1.0 - scr) * (grp_size / total_samples)
 
 def score(group, classes):
-	if len(group) == 0:
-		return float(nan)
-	s = 0
-	for class_val in classes:
-		prop = [row[-1] for row in group].count(class_val) / len(group)
-		s += prop * prop
-	return s
+    s = 0
+    if len(group) == 0:
+        return s
+    for class_val in classes:
+        prop = [row[-1] for row in group].count(class_val) / len(group)
+        s += prop * prop
+    return s
