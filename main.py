@@ -1,13 +1,6 @@
-from csv import reader
 import tree_build as tb
-
-def load_csv(filename):
-    file = open(filename, 'rb')
-    lines = reader(file)
-    dataset = list(lines)
-    return dataset
-
-dataset = load_csv('./dataset/titanic.csv')
+import DatasetHandler as dh
+import SplitXy
 
 def print_tree(node, depth=0):
     if isinstance(node, dict):
@@ -17,8 +10,20 @@ def print_tree(node, depth=0):
     else:
         print('%s[%s]' % ((depth*' ', node)))
 
-tree = tb.build_tree(dataset, 3, 2)
+filename = './dataset/titanic.csv'
+dataset = dh.read_csv(filename, headers=True)
 
-print_tree(tree)
+X, y = SplitXy.splitXy(dataset, 0)
 
-print (tree)
+# Let's just drop the `Name` column and make a rough prediction
+# The name column is at index `1`
+X = dh.drop(X, column=1)
+#X = dh.make_unique_columns_with(X, column=1)
+print (dh.unique_values(X, column=0))
+#print (X)
+
+#tree = tb.build_tree(X, 10, 5)
+
+#print_tree(tree)
+
+#print (tree)
