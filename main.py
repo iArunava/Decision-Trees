@@ -1,22 +1,13 @@
-import numpy as np
-import pandas as pd
+from csv import reader
 import tree_build as tb
 
-## TODO: This will not work as dataset is a DataFrame Object so handle that
-# dataset = pd.read_csv('./dataset/titanic.csv')
+def load_csv(filename):
+    file = open(filename, 'rb')
+    lines = reader(file)
+    dataset = list(lines)
+    return dataset
 
-dataset = [[2.771244718,1.784783929,0],
-    [1.728571309,1.169761413,0],
-        [3.678319846,2.81281357,0],
-            [3.961043357,2.61995032,0],
-                [2.999208922,2.209014212,0],
-                    [7.497545867,3.162953546,1],
-                        [9.00220326,3.339047188,1],
-                            [7.444542326,0.476683375,1],
-                                [10.12493903,3.234550982,1],
-                                    [6.642287351,3.319983761,1]]
-
-
+dataset = load_csv('./dataset/titanic.csv')
 
 def print_tree(node, depth=0):
     if isinstance(node, dict):
@@ -26,6 +17,8 @@ def print_tree(node, depth=0):
     else:
         print('%s[%s]' % ((depth*' ', node)))
 
-tree = tb.build_tree(dataset, 1, 2)
+tree = tb.build_tree(dataset, 3, 2)
 
 print_tree(tree)
+
+print (tree)
