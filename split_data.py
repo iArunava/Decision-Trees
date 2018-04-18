@@ -21,12 +21,10 @@ def get_split(dataset):
             groups = test_split(index, row[index], dataset)
             t_gini = gini.calc_total_gini(groups, class_val, total_samples)
 
-            print ('Attribute:', 'X'+str(index), ' Value:', row[index], ' Gini:', t_gini)
+            #print ('Attribute:', 'X'+str(index), ' Value:', row[index], ' Gini:', t_gini)
 
             if t_gini < c_score:
                 c_index, c_value, c_score, c_groups = \
                                           index, row[index], t_gini, groups
 
     return {'index':c_index, 'value': c_value, 'groups':c_groups}
-
-

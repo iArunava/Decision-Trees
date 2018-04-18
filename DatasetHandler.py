@@ -12,6 +12,12 @@ def read_csv(filename, headers=False):
 
     return dataset
 
+def str_col_float(ds, col):
+    ds = list(ds)
+    for row in ds:
+        row[col] = float(row[col].strip())
+    return ds
+
 def drop(dataset, column):
     dataset = [row[:column]+row[column+1:] for row in dataset]
     return dataset
@@ -48,7 +54,20 @@ def unique_values(dataset, column):
             instances.append(1)
             uv_val += 1
 
-    return uv_list, instances, uv_dict, uv_val
+    return uv_list, uv_dict, uv_val, instances
 
-def make_unique_columns_with(ds, column, drop=True):
-    uvalues = unique_values(ds, column)
+# this function mimics OneHotEncoder in sklearn
+def make_unique_columns_with(ds, column, drop_column=True):
+    uv_list, uv_dict, uv_val, instances = unique_values(ds, column)
+    ds_copy = list(ds)
+
+    for row in ds_copy:
+        start_length = len(row)
+        for _ in range(uv_val):
+            row.append(0)
+        row[start_length+uv_dict[row[column]]] = 1
+
+    if drop_column:
+        return drop(ds_copy, column)
+    else:
+        return ds_copy
