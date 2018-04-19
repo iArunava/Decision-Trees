@@ -11,13 +11,15 @@ That said, I plan on improving my code as I learn new techniques.
 
 # Accuracy and F1_Score
 
-Using KCrossValidation using 3 folds, this is the output
+Using KCrossValidation using 3 folds on the titanic dataset, this is the output
 
 ```
 [{'accuracy': 80.0, 'F1_score': 0.7377777777777778}, 
  {'accuracy': 81.69491525423729, 'F1_score': 0.773109243697479}, 
  {'accuracy': 41.01694915254237, 'F1_score': 0.35555555555555557}]
 ```
+
+NOTE: Data preprocessing is not taken much into account
 
 # LICENSE 
 
