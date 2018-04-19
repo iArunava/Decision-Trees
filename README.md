@@ -11,8 +11,6 @@ That said, I plan on improving my code as I learn new techniques.
 
 # Accuracy and F1_Score
 
-The model doesn't work great.
-
 Using KCrossValidation using 3 folds, this is the output
 
 ```
