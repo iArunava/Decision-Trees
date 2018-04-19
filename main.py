@@ -1,3 +1,7 @@
+import sys
+sys.path.insert(0, './Dataset-Ops/')
+sys.path.insert(1, './Decision-Trees')
+
 import DatasetHandler as dh
 import KCrossValidation as kcv
 import SplitXy
