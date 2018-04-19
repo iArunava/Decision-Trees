@@ -11,6 +11,34 @@ def accuarcy_metric(actual, predicted):
             correct += 1
     return correct / float(len(actual)) * 100.0
 
+def precision(tp, fp):
+    return tp/(tp+fp)
+
+def recall(tp, fn):
+    return tp/(tp+fn)
+
+
+def f1_score(actual, predicted):
+    tp = 0.0
+    fp = 0.0
+    fn = 0.0
+    tn = 0.0
+    for i in range(len(actual)):
+        if actual[i] == predicted[i] and actual[i] == '1':
+            tp += 1
+        if predicted[i] == '1' and actual[i] == '0':
+            fp += 1
+        if predicted[i] == '0' and actual[i] == '1':
+            fn += 1
+        if actual[i] == predicted[i] and actual[i] == '0':
+            tn += 1
+
+    prec = precision(tp, fp)
+    rec  = recall (tp, fn)
+
+    f1 = tp/(tp+((fn+fp)/2))
+    return f1
+
 def evaluate_kfold(dataset, process_dataset, max_depth, min_size, n_folds, *args):
     folds = kcs.cross_validation_split(dataset, n_folds)
     scores = list()
@@ -36,6 +64,7 @@ def evaluate_kfold(dataset, process_dataset, max_depth, min_size, n_folds, *args
             predicted.append(predict(node, row))
 
         accuracy = accuarcy_metric(actual=y_test, predicted=predicted)
-        scores.append(accuracy)
+        f1 = f1_score(y_test, predicted)
+        scores.append({'accuracy':accuracy, 'F1_score':f1})
 
     return scores
