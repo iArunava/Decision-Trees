@@ -2,7 +2,7 @@ import KCrossSplit as kcs
 from predict import predict
 import SplitXy
 import DatasetHandler as dh
-import tree_build as tb
+import TreeBuild as tb
 
 def accuarcy_metric(actual, predicted):
     correct = 0
@@ -11,7 +11,7 @@ def accuarcy_metric(actual, predicted):
             correct += 1
     return correct / float(len(actual)) * 100.0
 
-def evaluate_kfold(dataset, process_titanic, n_folds, *args):
+def evaluate_kfold(dataset, process_dataset, max_depth, min_size, n_folds, *args):
     folds = kcs.cross_validation_split(dataset, n_folds)
     scores = list()
 
@@ -20,35 +20,22 @@ def evaluate_kfold(dataset, process_titanic, n_folds, *args):
         train_set.remove(fold)
         train_set = sum(train_set, [])
 
-        X_train, y_train = process_titanic(train_set)
-
-        '''
-        test_set = list()
-        for row in fold:
-            row_copy = list(row[:-1])
-            test_set.append(row_copy)
-        '''
+        X_train, y_train = process_dataset(train_set)
 
         i = 0
         for row in X_train:
             row.append(y_train[i])
             i += 1
 
-        node = tb.build_tree(X_train, 15, 10)
+        node = tb.build_tree(X_train, max_depth, min_size)
 
         predicted = list()
-        X_test, y_test = process_titanic(fold)
+        X_test, y_test = process_dataset(fold)
 
-        #X_test = X_test[:5]
-        #y_test = y_test[:5]
         for row in X_test:
             predicted.append(predict(node, row))
 
-        y_test = ['0']*len(X_test)
         accuracy = accuarcy_metric(actual=y_test, predicted=predicted)
         scores.append(accuracy)
 
-        print (y_test)
-        print (predicted)
-        print (node)
     return scores

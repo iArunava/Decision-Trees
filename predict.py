@@ -10,3 +10,8 @@ def predict(node, row):
             return predict(node['right'], row)
         else:
             return node['right']
+
+
+def terminal_pred(group):
+    preds = [row[-1] for row in group]
+    return max(preds, key=preds.count)

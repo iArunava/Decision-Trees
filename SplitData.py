@@ -1,4 +1,4 @@
-import gini
+import Gini as gini
 
 def test_split(index, value, dataset):
     left, right = list(), list()
