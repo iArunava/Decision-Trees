@@ -9,9 +9,9 @@ But, the point of this implementation is to get a clear idea about how the algor
 
 That said, I plan on improving my code as I learn new techniques.
 
-# Accuracy and F1_Score
+# Accuracy and F1 Score
 
-Using KCrossValidation using 3 folds on the `banknote` dataset, this is the output
+Using KCrossValidation using `3` folds on the `banknote` dataset, this is the output
 
 ![results_decision_trees](https://user-images.githubusercontent.com/26242097/39419825-47ce3a68-4c7f-11e8-97bf-6e56d1dd6627.png)
 
@@ -44,8 +44,11 @@ python3 main.py
 python3 main.py 12 10
 ```
 
-NOTE: `max_depth` is the first argument and `min_size` is the second argument.\n
-NOTE: Missing one argument will set default arguments for `max_depth` and `min_size` with a warning shown.
+**NOTE**: `max_depth` is the first argument and `min_size` is the second argument.
+
+**NOTE**: Missing one argument will set default arguments for `max_depth` and `min_size` with a warning shown.
+
+**NOTE**: The default parameters for `max_depth` is `9` and `min_size` is `8`.
 
 # LICENSE 
 
