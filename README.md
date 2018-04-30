@@ -16,7 +16,7 @@ Using KCrossValidation using `3` folds on the `banknote` dataset, this is the ou
 ![results_decision_trees](https://user-images.githubusercontent.com/26242097/39419825-47ce3a68-4c7f-11e8-97bf-6e56d1dd6627.png)
 
 
-NOTE: Data preprocessing is not taken much into account
+**NOTE**: Data preprocessing is not taken much into account
 
 # How to use
 
@@ -50,7 +50,7 @@ python3 main.py 12 10
 
 **NOTE**: The default parameters for `max_depth` is `9` and `min_size` is `8`.
 
-# LICENSE 
+# License 
 
 Distributed under MIT.
 Have fun!
