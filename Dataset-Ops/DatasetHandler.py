@@ -3,7 +3,6 @@ from csv import reader
 def read_csv(filename, headers=False):
     file = open(filename, 'r')
     lines = reader(file)
-    print (lines)
     dataset = list(lines)
     file.close()
 
