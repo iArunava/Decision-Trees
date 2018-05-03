@@ -7,6 +7,7 @@ import DatasetHandler as dh
 import KCrossValidation as kcv
 import SplitXy
 import warnings
+import adaboost as ab
 
 def process_dataset_titanic(train_set):
     X_train, y_train = SplitXy.splitXy(train_set, 0)
@@ -39,9 +40,11 @@ required_arguments = 1
 try:
     method = sys.argv[1]
 except IndexError:
-    raise 'Requried first argument missing\n' +
-          'use `1` to evaluate model using k-folds'+
-          'use `2` to evaluate model using AdaBoost'
+    print ('Requried first argument missing\n' \
+          'use `1` to evaluate model using k-folds\n' \
+          'use `2` to evaluate model using AdaBoost\n\n' \
+          'Exiting program.')
+    exit(0)
 
 try:
     max_depth = int(sys.argv[required_arguments+1])
@@ -55,7 +58,7 @@ except IndexError:
     max_depth = 9
     min_size = 8
 
-if sys.argv[1] == 1:
+if sys.argv[1] == '1':
     acc_f1_list =  kcv.evaluate_kfold(dataset, process_dataset_banknote, max_depth=max_depth, min_size=min_size, n_folds=folds)
 
     i = 1
@@ -64,5 +67,6 @@ if sys.argv[1] == 1:
         print ('\tAccuracy: ', acc_f1['accuracy'])
         print ('\tF1 Score: ', acc_f1['F1_score'])
         i += 1
-elif sys.argv[1] == 2:
+elif sys.argv[1] == '2':
     # Use adaboost
+    ab.adaboost(dataset, process_dataset_banknote)
