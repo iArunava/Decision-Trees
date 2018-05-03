@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(0, './Dataset-Ops/')
 sys.path.insert(1, './Decision-Trees')
+sys.path.insert(2, './AdaBoost')
 
 import DatasetHandler as dh
 import KCrossValidation as kcv
@@ -26,15 +27,25 @@ def process_dataset_banknote(dataset):
 filename = './dataset/banknote.csv'
 dataset = dh.read_csv(filename, headers=False)
 
-# First Argument is max_depth
-# Second Argument is min_size
+# First argument: 1 -> Using K-fold
+#                 2 -> AdaBoost
+# Second Argument is max_depth
+# Third Argument is min_size
 max_depth = 0
 min_size  = 0
 folds = 3
+required_arguments = 1
 
 try:
-    max_depth = int(sys.argv[1])
-    min_size = int(sys.argv[2])
+    method = sys.argv[1]
+except IndexError:
+    raise 'Requried first argument missing\n' +
+          'use `1` to evaluate model using k-folds'+
+          'use `2` to evaluate model using AdaBoost'
+
+try:
+    max_depth = int(sys.argv[required_arguments+1])
+    min_size = int(sys.argv[required_arguments+2])
 
     print ('Using:\nmax_depth =', max_depth, '\nmin_size =', min_size, '\n')
 
@@ -44,11 +55,14 @@ except IndexError:
     max_depth = 9
     min_size = 8
 
-acc_f1_list =  kcv.evaluate_kfold(dataset, process_dataset_banknote, max_depth=max_depth, min_size=min_size, n_folds=folds)
+if sys.argv[1] == 1:
+    acc_f1_list =  kcv.evaluate_kfold(dataset, process_dataset_banknote, max_depth=max_depth, min_size=min_size, n_folds=folds)
 
-i = 1
-for acc_f1 in acc_f1_list:
-    print ('Iteration', i)
-    print ('\tAccuracy: ', acc_f1['accuracy'])
-    print ('\tF1 Score: ', acc_f1['F1_score'])
-    i += 1
+    i = 1
+    for acc_f1 in acc_f1_list:
+        print ('Iteration', i)
+        print ('\tAccuracy: ', acc_f1['accuracy'])
+        print ('\tF1 Score: ', acc_f1['F1_score'])
+        i += 1
+elif sys.argv[1] == 2:
+    # Use adaboost
