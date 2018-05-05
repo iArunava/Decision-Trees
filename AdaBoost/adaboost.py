@@ -17,7 +17,7 @@ def adaboost(dataset, process_dataset, rounds=10):
 
     # Rounds
     for r in range(rounds):
-        trees.append(tb.build_tree(X_train, 1, 500))
+        trees.append(tb.build_tree(X_train, 1, 500, weights))
 
         # Computing the error in round r
         sum_num = 0

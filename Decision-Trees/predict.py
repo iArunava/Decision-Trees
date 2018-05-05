@@ -12,6 +12,10 @@ def predict(node, row):
             return node['right']
 
 
-def terminal_pred(group):
+def terminal_pred(group, weights):
+    keep = True
     preds = [row[-1] for row in group]
-    return max(preds, key=preds.count)
+    sum_w = sum(weights)
+    if sum_w <= 0:
+        keep = False
+    return max(preds, key=preds.count), keep
